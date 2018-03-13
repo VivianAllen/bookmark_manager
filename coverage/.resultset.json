@@ -1,7 +1,27 @@
 {
   "RSpec": {
     "coverage": {
-      "/Users/CEO/Documents/Coding/MakersAcademy/Projects/Week4/Day1/spec/features/add_links_spec.rb": [
+      "/Users/vivianallen/projects/makers-course/bookmark_manager/spec/database_connection_spec.rb": [
+        1,
+        1,
+        null,
+        1,
+        1,
+        1,
+        1,
+        null,
+        1,
+        1,
+        1,
+        null,
+        null
+      ],
+      "/Users/vivianallen/projects/makers-course/bookmark_manager/lib/database_connection.rb": [
+        1,
+        null,
+        null
+      ],
+      "/Users/vivianallen/projects/makers-course/bookmark_manager/spec/features/add_links_spec.rb": [
         1,
         1,
         1,
@@ -11,7 +31,7 @@
         null,
         null
       ],
-      "/Users/CEO/Documents/Coding/MakersAcademy/Projects/Week4/Day1/spec/features/see_list_of_spec.rb": [
+      "/Users/vivianallen/projects/makers-course/bookmark_manager/spec/features/see_list_of_spec.rb": [
         1,
         1,
         1,
@@ -21,7 +41,7 @@
         null,
         null
       ],
-      "/Users/CEO/Documents/Coding/MakersAcademy/Projects/Week4/Day1/spec/link_spec.rb": [
+      "/Users/vivianallen/projects/makers-course/bookmark_manager/spec/link_spec.rb": [
         1,
         null,
         1,
@@ -35,7 +55,7 @@
         null,
         null
       ],
-      "/Users/CEO/Documents/Coding/MakersAcademy/Projects/Week4/Day1/spec/test_database_setup.rb": [
+      "/Users/vivianallen/projects/makers-course/bookmark_manager/spec/test_database_setup.rb": [
         1,
         1,
         null,
@@ -46,6 +66,6 @@
         1
       ]
     },
-    "timestamp": 1520959739
+    "timestamp": 1520962183
   }
 }
