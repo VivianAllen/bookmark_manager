@@ -6,31 +6,55 @@ task :test_database_setup do
   con.exec('TRUNCATE TABLE "links";')
 
   p 'repopulating links table in bookmark manager test database'
-  con.exec("INSERT INTO links(url) VALUES('http://www.makersacademy.com');")
-  con.exec("INSERT INTO links(url) VALUES('http://www.google.com');")
-  con.exec("INSERT INTO links(url) VALUES('http://www.facebook.com');")
+  con.exec("INSERT INTO links(url, title) VALUES('http://www.makersacademy.com', 'Makers Academy');")
+  con.exec("INSERT INTO links(url, title) VALUES('http://www.google.com', 'Google');")
+  con.exec("INSERT INTO links(url, title) VALUES('http://www.facebook.com', 'Facebook');")
 end
 
-task :db_create do
-  con = PG.connect
-  p 'setting up databases'
-    ['bookmark_manager', 'bookmark_manager_test'].each do |dbname|
-    if con.exec("SELECT datname FROM pg_catalog.pg_database WHERE "\
-      "lower(datname) = lower('#{dbname}');").count.zero?
-      p 'setting up #{dbname} database'
-      con.exec("CREATE DATABASE #{dbname};")
-    else
-      p "#{dbname} already exists, ignoring"
-    end
+task :create_db do
+  dbname = 'bookmark_manager'
+  if con.exec("SELECT datname FROM pg_catalog.pg_database WHERE "\
+    "lower(datname) = lower('#{dbname}');").count.zero?
+    p 'setting up #{dbname} database'
+    con.exec("CREATE DATABASE #{dbname};")
+  else
+    p "#{dbname} already exists, ignoring"
   end
 end
 
-task :table_create do
-  p 'setting up database tables'
-  ['bookmark_manager', 'bookmark_manager_test'].each do |dbname|
-    con = PG.connect :dbname => dbname
-    con.exec('CREATE TABLE IF NOT EXISTS links(id SERIAL PRIMARY KEY, url VARCHAR(60));')
+task :create_test_db do
+  dbname = 'bookmark_manager_test'
+  if con.exec("SELECT datname FROM pg_catalog.pg_database WHERE "\
+    "lower(datname) = lower('#{dbname}');").count.zero?
+    p 'setting up #{dbname} database'
+    con.exec("CREATE DATABASE #{dbname};")
+  else
+    p "#{dbname} already exists, ignoring"
   end
+end
+
+task :create_all_db do
+  RAKE::create_db
+  RAKE::create_test_db
+end
+
+task :create_table do
+  p 'setting up database table'
+  dbname = 'bookmark_manager'
+  con = PG.connect :dbname => dbname
+  con.exec('CREATE TABLE IF NOT EXISTS links(id SERIAL PRIMARY KEY, url VARCHAR(60), title VARCHAR(60));')
+end
+
+task :create_test_table do
+  p 'setting up database test table'
+  dbname = 'bookmark_manager_test'
+  con = PG.connect :dbname => dbname
+  con.exec('CREATE TABLE IF NOT EXISTS links(id SERIAL PRIMARY KEY, url VARCHAR(60), title VARCHAR(60));')
+end
+
+task :create_all_tables do
+  Rake::Task[:create_table].execute
+  Rake::Task[:create_test_table].execute
 end
 
 task :reset_table do
@@ -43,4 +67,26 @@ task :reset_test_table do
   p 'clearing bookmark test table'
   con = PG.connect :dbname => 'bookmark_manager_test'
   con.exec('TRUNCATE TABLE "links";')
+end
+
+task :reset_all_tables do
+  Rake::Task[:reset_table].execute
+  Rake::Task[:reset_test_table].execute
+end
+
+task :drop_table do
+  p 'deleting bookmarks table'
+  con = PG.connect :dbname => 'bookmark_manager'
+  con.exec('DROP TABLE "links";')
+end
+
+task :drop_test_table do
+  p 'deleting bookmarks test table'
+  con = PG.connect :dbname => 'bookmark_manager_test'
+  con.exec('DROP TABLE "links";')
+end
+
+task :drop_all_tables do
+  Rake::Task[:drop_table].execute
+  Rake::Task[:drop_test_table].execute
 end
