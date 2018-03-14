@@ -11,27 +11,36 @@ task :test_database_setup do
   con.exec("INSERT INTO links(url) VALUES('http://www.facebook.com');")
 end
 
-task :setup do
-    con = PG.connect
-    p 'setting up databases'
+task :db_create do
+  con = PG.connect
+  p 'setting up databases'
     ['bookmark_manager', 'bookmark_manager_test'].each do |dbname|
-      if con.exec("SELECT datname FROM pg_catalog.pg_database WHERE "\
-        "lower(datname) = lower('#{dbname}');").count.zero?
-        p 'setting up #{dbname} database'
-        con.exec('CREATE DATABASE IF NOT EXISTS #{dbname};')
-      else
-        p '#{dbname} already exists, ignoring'
-      end
+    if con.exec("SELECT datname FROM pg_catalog.pg_database WHERE "\
+      "lower(datname) = lower('#{dbname}');").count.zero?
+      p 'setting up #{dbname} database'
+      con.exec("CREATE DATABASE #{dbname};")
+    else
+      p "#{dbname} already exists, ignoring"
     end
-    p 'setting up database tables'
-    ['bookmark_manager', 'bookmark_manager_test'].each do |dbname|
-      con = PG.connect :dbname => dbname
-      con.exec('CREATE TABLE IF NOT EXISTS links(id SERIAL PRIMARY KEY, url VARCHAR(60));')
-    end
-    # p 'setting up databases and tables'
-    # ['bookmark_manager', 'bookmark_manager_test'].each do |dbname|
-    #   con.exec("CREATE DATABASE IF NOT EXISTS #{dbname};")
-    #   con = PG.connect :dbname => dbname
-    #   con.exec('CREATE TABLE IF NOT EXISTS links(id SERIAL PRIMARY KEY, url VARCHAR(60));')
-    # end
+  end
+end
+
+task :table_create do
+  p 'setting up database tables'
+  ['bookmark_manager', 'bookmark_manager_test'].each do |dbname|
+    con = PG.connect :dbname => dbname
+    con.exec('CREATE TABLE IF NOT EXISTS links(id SERIAL PRIMARY KEY, url VARCHAR(60));')
+  end
+end
+
+task :reset_table do
+  p 'clearing bookmarks table'
+  con = PG.connect :dbname => 'bookmark_manager'
+  con.exec('TRUNCATE TABLE "links";')
+end
+
+task :reset_test_table do
+  p 'clearing bookmark test table'
+  con = PG.connect :dbname => 'bookmark_manager_test'
+  con.exec('TRUNCATE TABLE "links";')
 end

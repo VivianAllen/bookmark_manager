@@ -9,9 +9,10 @@
         <button type='submit'>Add link</button>
       </label>
     </form>
+    <%= styled_flash %>
     <ul>
       <% @links.each do |link| %>
-        <li><%= link %></li>
+        <li><%= link.url %></li>
       <% end %>
     </ul>
   </body>
