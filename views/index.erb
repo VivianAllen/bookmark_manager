@@ -6,13 +6,17 @@
       <label for='link_url'>
         Add a new link URL here:
         <input type='text' name='link_url'>
-        <button type='submit'>Add link</button>
       </label>
+      <label for='link_url'>
+        Add a new link title here:
+        <input type='text' name='link_title'>
+      </label>
+      <button type='submit'>Add link</button>
     </form>
     <%= styled_flash %>
     <ul>
       <% @links.each do |link| %>
-        <li><%= link.url %></li>
+        <li><%= link.title %></li>
       <% end %>
     </ul>
   </body>

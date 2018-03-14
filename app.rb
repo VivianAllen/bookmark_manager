@@ -15,7 +15,7 @@ class BookmarkManager < Sinatra::Base
   end
 
   post '/add_link' do
-    flash[:notice] = 'ERROR: INVALID URL!' unless Link.add_link(params[:link_url])
+    flash[:notice] = 'ERROR: INVALID URL!' unless Link.add_link(params[:link_url], params[:link_title])
     redirect '/'
   end
 
