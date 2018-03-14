@@ -13,6 +13,13 @@
       </label>
       <button type='submit'>Add link</button>
     </form>
+    <form action='/delete_link' method='post'>
+      <label for='title_to_delete'>
+        Input title of link to delete here:
+        <input type='text' name='title_to_delete'>
+      </label>
+      <button type='submit'>Delete link</button>
+    </form>
     <%= styled_flash %>
     <ul>
       <% @links.each do |link| %>

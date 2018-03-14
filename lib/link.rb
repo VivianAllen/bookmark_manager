@@ -21,6 +21,10 @@ class Link
     "INSERT INTO links (url, title) VALUES ('#{url}', '#{title}')"
   end
 
+  def self.delete_link(title)
+    DatabaseConnection.query "DELETE FROM links WHERE title = '#{title}';"
+  end
+
   private
 
   def self.valid_url(url)

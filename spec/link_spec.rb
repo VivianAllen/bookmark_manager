@@ -36,4 +36,14 @@ describe Link do
       expect(Link.all[0].title).to eq title
     end
   end
+  describe '#self.delete_link' do
+    it 'deletes a link' do
+      Rake::Task[:reset_test_table].execute
+      url = 'http://www.f1.com'
+      title = 'F1'
+      Link.add_link(url, title)
+      Link.delete_link('F1')
+      expect(Link.all.count).to eq 0
+    end
+  end
 end
