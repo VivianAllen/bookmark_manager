@@ -21,6 +21,8 @@ SimpleCov.start
 RSpec.configure do |config|
 
   config.before(:each) do
+    Rake::Task[:drop_test_table].execute
+    Rake::Task[:create_test_table].execute
     Rake::Task[:test_database_setup].execute
   end
 

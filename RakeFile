@@ -77,13 +77,13 @@ end
 task :drop_table do
   p 'deleting bookmarks table'
   con = PG.connect :dbname => 'bookmark_manager'
-  con.exec('DROP TABLE "links";')
+  con.exec('DROP TABLE IF EXISTS "links";')
 end
 
 task :drop_test_table do
   p 'deleting bookmarks test table'
   con = PG.connect :dbname => 'bookmark_manager_test'
-  con.exec('DROP TABLE "links";')
+  con.exec('DROP TABLE IF EXISTS "links";')
 end
 
 task :drop_all_tables do

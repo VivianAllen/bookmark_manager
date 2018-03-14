@@ -42,7 +42,7 @@ describe Link do
       url = 'http://www.f1.com'
       title = 'F1'
       Link.add_link(url, title)
-      Link.delete_link('F1')
+      Link.delete_link(4)
       expect(Link.all.count).to eq 0
     end
   end

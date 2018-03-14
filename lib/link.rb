@@ -21,8 +21,8 @@ class Link
     "INSERT INTO links (url, title) VALUES ('#{url}', '#{title}')"
   end
 
-  def self.delete_link(title)
-    DatabaseConnection.query "DELETE FROM links WHERE title = '#{title}';"
+  def self.delete_link(id)
+    DatabaseConnection.query "DELETE FROM links WHERE id = '#{id}';"
   end
 
   private
@@ -30,5 +30,4 @@ class Link
   def self.valid_url(url)
     /^(https*:\/\/)*w{3}\.[a-z0-9\-\.]+/.match?(url)
   end
-
 end
