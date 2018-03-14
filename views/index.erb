@@ -4,11 +4,11 @@
   <body>
     <form action='/add_link' method='post'>
       <label for='link_url'>
-        Add a new link URL here:
+        URL:
         <input type='text' name='link_url'>
       </label>
-      <label for='link_url'>
-        Add a new link title here:
+      <label for='link_title'>
+        Title:
         <input type='text' name='link_title'>
       </label>
       <button type='submit'>Add link</button>
@@ -21,6 +21,10 @@
           <form action='/delete_link' method='post'>
             <input type="hidden" name="id_to_delete" value="<%= link.id %>">
             <button type='submit'>Delete</button>
+          </form>
+          <form action='/edit_link' method='post'>
+            <input type="hidden" name="id_to_edit" value="<%= link.id %>">
+            <button type='submit'>Edit</button>
           </form>
         </li>
       <% end %>

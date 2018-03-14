@@ -46,4 +46,13 @@ describe Link do
       expect(Link.all.count).to eq 0
     end
   end
+  describe '#self.edit_link' do
+    it 'edits a link' do
+      url = 'http://www.f1.com'
+      title = 'F1'
+      Link.edit_link(1, url, title)
+      links = Link.all
+      expect(links[-1].title).to eq "F1"
+    end
+  end
 end
