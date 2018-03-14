@@ -6,8 +6,10 @@ require 'capybara/rspec'
 require 'rspec'
 require 'simplecov'
 require 'simplecov-console'
+require 'rake'
 
 require File.join(File.dirname(__FILE__), '..', 'app.rb')
+Rake.application.load_rakefile
 
 Capybara.app = BookmarkManager
 
@@ -19,7 +21,7 @@ SimpleCov.start
 RSpec.configure do |config|
 
   config.before(:each) do
-    require 'test_database_setup'
+    Rake::Task[:test_database_setup].execute
   end
 
   config.expect_with :rspec do |expectations|

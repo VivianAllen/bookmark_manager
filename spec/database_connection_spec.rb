@@ -4,7 +4,7 @@ require 'pg'
 describe DatabaseConnection do
 
   it 'messages PG to open a connection' do
-    expect(PG).to receive(:connect).with(any_args)
+    expect(PG).to receive(:connect).with(dbname: 'bookmark_manager_test')
     DatabaseConnection.setup('bookmark_manager_test')
   end
 

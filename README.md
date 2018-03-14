@@ -1,5 +1,7 @@
 # Bookmark-Manager
 
+if databases do not exist, run 'rake setup' to create them (PLACEHOLDER)
+
 ## User Stories
 ```
 As a user,

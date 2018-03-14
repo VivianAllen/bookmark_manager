@@ -1,0 +1,37 @@
+require 'pg'
+
+task :test_database_setup do
+  p 'cleaning links table bookmark manager test database'
+  con = PG.connect :dbname => 'bookmark_manager_test'
+  con.exec('TRUNCATE TABLE "links";')
+
+  p 'repopulating links table in bookmark manager test database'
+  con.exec("INSERT INTO links(url) VALUES('http://www.makersacademy.com');")
+  con.exec("INSERT INTO links(url) VALUES('http://www.google.com');")
+  con.exec("INSERT INTO links(url) VALUES('http://www.facebook.com');")
+end
+
+task :setup do
+    con = PG.connect
+    p 'setting up databases'
+    ['bookmark_manager', 'bookmark_manager_test'].each do |dbname|
+      if con.exec("SELECT datname FROM pg_catalog.pg_database WHERE "\
+        "lower(datname) = lower('#{dbname}');").count.zero?
+        p 'setting up #{dbname} database'
+        con.exec('CREATE DATABASE IF NOT EXISTS #{dbname};')
+      else
+        p '#{dbname} already exists, ignoring'
+      end
+    end
+    p 'setting up database tables'
+    ['bookmark_manager', 'bookmark_manager_test'].each do |dbname|
+      con = PG.connect :dbname => dbname
+      con.exec('CREATE TABLE IF NOT EXISTS links(id SERIAL PRIMARY KEY, url VARCHAR(60));')
+    end
+    # p 'setting up databases and tables'
+    # ['bookmark_manager', 'bookmark_manager_test'].each do |dbname|
+    #   con.exec("CREATE DATABASE IF NOT EXISTS #{dbname};")
+    #   con = PG.connect :dbname => dbname
+    #   con.exec('CREATE TABLE IF NOT EXISTS links(id SERIAL PRIMARY KEY, url VARCHAR(60));')
+    # end
+end
