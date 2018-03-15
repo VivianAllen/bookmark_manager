@@ -1,5 +1,5 @@
 feature 'adding comments' do
-  xscenario 'a user can add comments to link and see the results' do
+  scenario 'a user can add comments to link and see the results' do
     visit '/'
     within '#link-1' do
       click_on 'Add comment'

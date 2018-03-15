@@ -41,6 +41,16 @@ class BookmarkManager < Sinatra::Base
     redirect '/links'
   end
 
+  post '/links/comments/add' do
+    session[:id_to_comment] = params[:id_to_comment]
+    erb :"links/comments/add"
+  end
+
+  post '/links/comments/apply_addition' do
+    Link.return_link(session[:id_to_comment]).add_comment(params['text'])
+    redirect '/links'
+  end
+
   run! if app_file == $0
 
 end

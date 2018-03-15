@@ -18,6 +18,6 @@ feature 'editing a link' do
     fill_in :edit_title, with: title
     click_on 'Submit'
     expect(page).to have_content title
-    expect(page).not_to have_content 'Makers Academy'
+    expect(page).not_to have_content 'http://www.makersacademy.com'
   end
 end

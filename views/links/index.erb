@@ -28,6 +28,13 @@
             <input type="hidden" name="current_title" value="<%=link.title%>">
             <button type='submit'>Edit</button>
           </form>
+          <form action='/links/comments/add' method='post'>
+            <input type="hidden" name="id_to_comment" value="<%=link.id%>">
+            <button type='submit'>Add comments</button>
+          </form>
+          <%link.comments.each do |comment|%>
+            <p><%=comment.text%></p><br>
+          <%end%>
         </li>
       <% end %>
     </ul>

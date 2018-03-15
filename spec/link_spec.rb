@@ -61,4 +61,9 @@ describe Link do
       expect(Link.all[0].comments[-1].text).to eq text
     end
   end
+  describe '#return_link' do
+    it 'returns a link with a title' do
+      expect(Link.return_link(1).title).to eq 'Makers Academy'
+    end
+  end
 end

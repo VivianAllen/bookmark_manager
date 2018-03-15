@@ -32,6 +32,10 @@ class Link
     "title = '#{title}' WHERE id = '#{id}';"
   end
 
+  def self.return_link(id)
+    self.all.select { |link| id.to_s==link.id } [0] # can't find the link in this array!
+  end
+
   def comments
     rs = DatabaseConnection.query "SELECT * FROM comments WHERE link_id='#{self.id}'"
     rs.map { |comment| Comment.new(comment['id'], comment['text'], comment['link_id']) }
