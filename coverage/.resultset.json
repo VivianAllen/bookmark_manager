@@ -40,9 +40,9 @@
       "/Users/vivianallen/projects/makers-course/bookmark_manager/spec/features/adding_comments_spec.rb": [
         1,
         1,
-        1,
-        1,
-        1,
+        0,
+        0,
+        0,
         null,
         0,
         0,
@@ -103,8 +103,8 @@
       "/Users/vivianallen/projects/makers-course/bookmark_manager/spec/features/viewing_comments_spec.rb": [
         1,
         1,
-        1,
-        1,
+        0,
+        0,
         0,
         0,
         null,
@@ -178,11 +178,15 @@
         null,
         null,
         1,
+        1,
+        1,
+        1,
+        1,
         null,
         null,
         null
       ]
     },
-    "timestamp": 1521131691
+    "timestamp": 1521141852
   }
 }

@@ -37,6 +37,11 @@ class Link
     rs.map { |comment| Comment.new(comment['id'], comment['text'], comment['link_id']) }
   end
 
+  def add_comment(text)
+    DatabaseConnection.query "INSERT INTO comments (text, link_id) "\
+    "VALUES ('#{text}', '#{self.id}')"
+  end
+
   private
 
   def self.valid_url(url)

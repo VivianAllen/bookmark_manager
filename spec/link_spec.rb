@@ -54,7 +54,11 @@ describe Link do
       expect(Link.all[0].comments[0].text).to eq 'This is a comment about Makers Academy'
     end
   end
-  xdescribe '#self.add_comment' do
-
+  describe '#add_comment' do
+    it 'adds a comment'do
+      text = 'a comment about something'
+      Link.all[0].add_comment(text)
+      expect(Link.all[0].comments[-1].text).to eq text
+    end
   end
 end
