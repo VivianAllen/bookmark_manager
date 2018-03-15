@@ -33,6 +33,6 @@ class Link
   private
 
   def self.valid_url(url)
-    /^(https*:\/\/)*w{3}\.[a-z0-9\-\.]+/.match?(url)
+    /(^(https?:\/\/)|^(w{3}\.))[a-z0-9\/\.]+/.match?(url)
   end
 end
