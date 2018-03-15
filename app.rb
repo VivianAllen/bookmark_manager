@@ -27,6 +27,8 @@ class BookmarkManager < Sinatra::Base
 
   post '/edit_link' do
     session[:id_to_edit] = params[:id_to_edit]
+    session[:current_url] = params[:current_url]
+    session[:current_title] = params[:current_title]
     erb :edit
   end
 

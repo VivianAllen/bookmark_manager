@@ -24,6 +24,8 @@
           </form>
           <form action='/edit_link' method='post'>
             <input type="hidden" name="id_to_edit" value="<%= link.id %>">
+            <input type="hidden" name="current_url" value="<%= link.url %>">
+            <input type="hidden" name="current_title" value="<%= link.title %>">
             <button type='submit'>Edit</button>
           </form>
         </li>
