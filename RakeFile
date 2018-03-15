@@ -6,9 +6,9 @@ task :test_database_setup do
   con.exec('TRUNCATE TABLE "links";')
 
   p 'repopulating links table in bookmark manager test database'
-  con.exec("INSERT INTO links(url, title) VALUES('http://www.makersacademy.com', 'Makers Academy');")
-  con.exec("INSERT INTO links(url, title) VALUES('http://www.google.com', 'Google');")
-  con.exec("INSERT INTO links(url, title) VALUES('http://www.facebook.com', 'Facebook');")
+  con.exec("INSERT INTO links(id, url, title) VALUES(1, 'http://www.makersacademy.com', 'Makers Academy');")
+  con.exec("INSERT INTO links(id, url, title) VALUES(2, 'http://www.google.com', 'Google');")
+  con.exec("INSERT INTO links(id, url, title) VALUES(3, 'http://www.facebook.com', 'Facebook');")
 end
 
 task :create_db do
