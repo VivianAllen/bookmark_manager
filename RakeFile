@@ -3,7 +3,7 @@ require 'pg'
 task :test_database_setup do
   p 'RAKE: setting up test database'
   con = PG.connect :dbname => 'bookmark_manager_test'
-  con.exec('TRUNCATE TABLE "links", "comments";')
+  con.exec('TRUNCATE TABLE "links" CASCADE;')
 
   con.exec("INSERT INTO links(id, url, title) VALUES(1, 'http://www.makersacademy.com', 'Makers Academy');")
   con.exec("INSERT INTO links(id, url, title) VALUES(2, 'http://www.google.com', 'Google');")
