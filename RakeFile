@@ -37,7 +37,7 @@ task :create_all_db do
 end
 
 task :create_table do
-  p 'RAKE: setting up database table'
+  p 'RAKE: setting up database links table'
   dbname = 'bookmark_manager'
   con = PG.connect :dbname => dbname
   con.exec('CREATE TABLE IF NOT EXISTS links(id SERIAL PRIMARY KEY, url VARCHAR(60), title VARCHAR(60));')
@@ -56,13 +56,13 @@ task :create_all_tables do
 end
 
 task :reset_table do
-  p 'RAKE: clearing bookmarks table'
+  p 'RAKE: clearing bookmarks links table'
   con = PG.connect :dbname => 'bookmark_manager'
   con.exec('TRUNCATE TABLE "links";')
 end
 
 task :reset_test_table do
-  p 'RAKE: clearing bookmark test table'
+  p 'RAKE: clearing bookmark test links table'
   con = PG.connect :dbname => 'bookmark_manager_test'
   con.exec('TRUNCATE TABLE "links";')
 end
@@ -73,13 +73,13 @@ task :reset_all_tables do
 end
 
 task :drop_table do
-  p 'deleting bookmarks table'
+  p 'deleting bookmarks links table'
   con = PG.connect :dbname => 'bookmark_manager'
   con.exec('DROP TABLE IF EXISTS "links";')
 end
 
 task :drop_test_table do
-  p 'deleting bookmarks test table'
+  p 'deleting bookmarks test link table'
   con = PG.connect :dbname => 'bookmark_manager_test'
   con.exec('DROP TABLE IF EXISTS "links";')
 end
