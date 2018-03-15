@@ -1,4 +1,6 @@
 require 'pg'
+require_relative 'database_connection'
+require_relative 'comments'
 
 class Link
 
@@ -28,6 +30,11 @@ class Link
   def self.edit_link(id, url, title)
     DatabaseConnection.query "UPDATE links SET url = '#{url}', "\
     "title = '#{title}' WHERE id = '#{id}';"
+  end
+
+  def self.comments
+    rs = DatabaseConnection.query "SELECT * FROM comments"
+    rs.map { |comment| Comment.new(comment['id'], comment['text'], comment['link_id']) }
   end
 
   private

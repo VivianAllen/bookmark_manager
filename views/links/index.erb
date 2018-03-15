@@ -17,15 +17,15 @@
     <ul>
       <% @links.each do |link| %>
         <li id="link-<%=link.id%>">
-          <a href="<%= link.url %>"><%=link.title%></a>
+          <a href="<%=link.url%>"><%=link.title%></a>
           <form action='/links/delete' method='post'>
-            <input type="hidden" name="id_to_delete" value="<%= link.id %>">
+            <input type="hidden" name="id_to_delete" value="<%=link.id%>">
             <button type='submit'>Delete</button>
           </form>
           <form action='/links/edit' method='post'>
-            <input type="hidden" name="id_to_edit" value="<%= link.id %>">
-            <input type="hidden" name="current_url" value="<%= link.url %>">
-            <input type="hidden" name="current_title" value="<%= link.title %>">
+            <input type="hidden" name="id_to_edit" value="<%=link.id%>">
+            <input type="hidden" name="current_url" value="<%=link.url%>">
+            <input type="hidden" name="current_title" value="<%=link.title%>">
             <button type='submit'>Edit</button>
           </form>
         </li>
