@@ -32,9 +32,11 @@
             <input type="hidden" name="id_to_comment" value="<%=link.id%>">
             <button type='submit'>Add comments</button>
           </form>
-          <%link.comments.each do |comment|%>
-            <p><%=comment.text%></p><br>
-          <%end%>
+          <ul>
+            <%link.comments.each do |comment|%>
+              <li><%=comment.text%></li>
+            <%end%>
+          </ul>
         </li>
       <% end %>
     </ul>
