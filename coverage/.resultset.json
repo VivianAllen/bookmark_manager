@@ -37,6 +37,20 @@
         null,
         null
       ],
+      "/Users/vivianallen/projects/makers-course/bookmark_manager/spec/features/adding_comments_spec.rb": [
+        1,
+        1,
+        1,
+        1,
+        1,
+        null,
+        0,
+        0,
+        0,
+        0,
+        null,
+        null
+      ],
       "/Users/vivianallen/projects/makers-course/bookmark_manager/spec/features/deleting_links_spec.rb": [
         1,
         1,
@@ -74,7 +88,9 @@
         null,
         null
       ],
-      "/Users/vivianallen/projects/makers-course/bookmark_manager/spec/features/see_list_of_spec.rb": [
+      "/Users/vivianallen/projects/makers-course/bookmark_manager/spec/features/validating_links_spec.rb": [
+        1,
+        1,
         1,
         1,
         1,
@@ -84,9 +100,17 @@
         null,
         null
       ],
-      "/Users/vivianallen/projects/makers-course/bookmark_manager/spec/features/validating_links_spec.rb": [
+      "/Users/vivianallen/projects/makers-course/bookmark_manager/spec/features/viewing_comments_spec.rb": [
         1,
         1,
+        1,
+        1,
+        0,
+        0,
+        null,
+        null
+      ],
+      "/Users/vivianallen/projects/makers-course/bookmark_manager/spec/features/viewing_links_spec.rb": [
         1,
         1,
         1,
@@ -151,13 +175,6 @@
         1,
         1,
         1,
-        1,
-        1,
-        null,
-        1,
-        1,
-        1,
-        1,
         null,
         null,
         1,
@@ -166,6 +183,6 @@
         null
       ]
     },
-    "timestamp": 1521130665
+    "timestamp": 1521131691
   }
 }

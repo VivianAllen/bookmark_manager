@@ -32,8 +32,8 @@ class Link
     "title = '#{title}' WHERE id = '#{id}';"
   end
 
-  def self.comments
-    rs = DatabaseConnection.query "SELECT * FROM comments"
+  def comments
+    rs = DatabaseConnection.query "SELECT * FROM comments WHERE link_id='#{self.id}'"
     rs.map { |comment| Comment.new(comment['id'], comment['text'], comment['link_id']) }
   end
 
