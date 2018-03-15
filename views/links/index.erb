@@ -2,14 +2,14 @@
 <!DOCTYPE html>
 <html>
   <body>
-    <form action='/add_link' method='post'>
+    <form action='/links/add' method='post'>
       <label for='link_url'>
         URL:
-        <input type='text' name='link_url'>
+        <input type='text' name='link_url' required>
       </label>
       <label for='link_title'>
         Title:
-        <input type='text' name='link_title'>
+        <input type='text' name='link_title' required>
       </label>
       <button type='submit'>Add link</button>
     </form>
@@ -18,11 +18,11 @@
       <% @links.each do |link| %>
         <li id="link-<%=link.id%>">
           <a href="<%= link.url %>"><%=link.title%></a>
-          <form action='/delete_link' method='post'>
+          <form action='/links/delete' method='post'>
             <input type="hidden" name="id_to_delete" value="<%= link.id %>">
             <button type='submit'>Delete</button>
           </form>
-          <form action='/edit_link' method='post'>
+          <form action='/links/edit' method='post'>
             <input type="hidden" name="id_to_edit" value="<%= link.id %>">
             <input type="hidden" name="current_url" value="<%= link.url %>">
             <input type="hidden" name="current_title" value="<%= link.title %>">

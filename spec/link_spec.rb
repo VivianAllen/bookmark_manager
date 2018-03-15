@@ -22,18 +22,16 @@ describe Link do
       expect(Link.add_link(url, title)).to eq false
     end
     it 'creates a link with a returns it' do
-      Rake::Task[:reset_test_table].execute
       url = 'http://www.f1.com'
       title = 'F1'
       Link.add_link(url, title)
-      expect(Link.all[0].url).to eq url
+      expect(Link.all[-1].url).to eq url
     end
     it 'creates a link with a title and returns it' do
-      Rake::Task[:reset_test_table].execute
       url = 'http://www.f1.com'
       title = 'F1'
       Link.add_link(url, title)
-      expect(Link.all[0].title).to eq title
+      expect(Link.all[-1].title).to eq title
     end
   end
   describe '#self.delete_link' do

@@ -1,11 +1,9 @@
 require 'pg'
 
 task :test_database_setup do
-  p 'cleaning links table bookmark manager test database'
+  p 'RAKE: setting up test database'
   con = PG.connect :dbname => 'bookmark_manager_test'
   con.exec('TRUNCATE TABLE "links";')
-
-  p 'repopulating links table in bookmark manager test database'
   con.exec("INSERT INTO links(id, url, title) VALUES(1, 'http://www.makersacademy.com', 'Makers Academy');")
   con.exec("INSERT INTO links(id, url, title) VALUES(2, 'http://www.google.com', 'Google');")
   con.exec("INSERT INTO links(id, url, title) VALUES(3, 'http://www.facebook.com', 'Facebook');")
@@ -15,7 +13,7 @@ task :create_db do
   dbname = 'bookmark_manager'
   if con.exec("SELECT datname FROM pg_catalog.pg_database WHERE "\
     "lower(datname) = lower('#{dbname}');").count.zero?
-    p 'setting up #{dbname} database'
+    p 'RAKE: setting up #{dbname} database'
     con.exec("CREATE DATABASE #{dbname};")
   else
     p "#{dbname} already exists, ignoring"
@@ -26,7 +24,7 @@ task :create_test_db do
   dbname = 'bookmark_manager_test'
   if con.exec("SELECT datname FROM pg_catalog.pg_database WHERE "\
     "lower(datname) = lower('#{dbname}');").count.zero?
-    p 'setting up #{dbname} database'
+    p 'RAKE: setting up #{dbname} database'
     con.exec("CREATE DATABASE #{dbname};")
   else
     p "#{dbname} already exists, ignoring"
@@ -39,14 +37,14 @@ task :create_all_db do
 end
 
 task :create_table do
-  p 'setting up database table'
+  p 'RAKE: setting up database table'
   dbname = 'bookmark_manager'
   con = PG.connect :dbname => dbname
   con.exec('CREATE TABLE IF NOT EXISTS links(id SERIAL PRIMARY KEY, url VARCHAR(60), title VARCHAR(60));')
 end
 
 task :create_test_table do
-  p 'setting up database test table'
+  p 'RAKE: setting up database test table'
   dbname = 'bookmark_manager_test'
   con = PG.connect :dbname => dbname
   con.exec('CREATE TABLE IF NOT EXISTS links(id SERIAL PRIMARY KEY, url VARCHAR(60), title VARCHAR(60));')
@@ -58,13 +56,13 @@ task :create_all_tables do
 end
 
 task :reset_table do
-  p 'clearing bookmarks table'
+  p 'RAKE: clearing bookmarks table'
   con = PG.connect :dbname => 'bookmark_manager'
   con.exec('TRUNCATE TABLE "links";')
 end
 
 task :reset_test_table do
-  p 'clearing bookmark test table'
+  p 'RAKE: clearing bookmark test table'
   con = PG.connect :dbname => 'bookmark_manager_test'
   con.exec('TRUNCATE TABLE "links";')
 end
