@@ -10,7 +10,7 @@ describe Comment do
     Comment.setup(mock_connection)
   end
 
-  describe '#comments' do
+  describe '#all' do
     it 'asks the database for all comments relating to a link' do
       expect(mock_connection).to receive(:query).with \
       "SELECT * FROM comments WHERE link_id = '#{mock_link.id}'"

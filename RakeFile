@@ -3,9 +3,7 @@ require 'pg'
 task :test_database_setup do
   p 'RAKE: setting up test database'
   con = PG.connect :dbname => 'bookmark_manager_test'
-  con.exec('TRUNCATE TABLE "links" CASCADE;')
-  con.exec("ALTER SEQUENCE links_id_seq RESTART WITH 1")
-  con.exec("ALTER SEQUENCE comments_id_seq RESTART WITH 1")
+  con.exec('TRUNCATE TABLE "links" RESTART IDENTITY CASCADE;')
   con.exec("INSERT INTO links(url, title) VALUES('http://www.makersacademy.com', 'Makers Academy');")
   con.exec("INSERT INTO links(url, title) VALUES('http://www.google.com', 'Google');")
   con.exec("INSERT INTO links(url, title) VALUES('http://www.facebook.com', 'Facebook');")
@@ -13,6 +11,14 @@ task :test_database_setup do
   con.exec("INSERT INTO comments(text, link_id) VALUES('This is a comment about Makers Academy', 1);")
   con.exec("INSERT INTO comments(text, link_id) VALUES('This is a comment about Google', 2);")
   con.exec("INSERT INTO comments(text, link_id) VALUES('This is a comment about Facebook', 3);")
+
+  con.exec("INSERT INTO tags(content) VALUES('Makers Academy tag');")
+  con.exec("INSERT INTO tags(content) VALUES('Google tag');")
+  con.exec("INSERT INTO tags(content) VALUES('Facebook tag');")
+
+  con.exec("INSERT INTO link_tags(link_id, tag_id) VALUES(1, 1);")
+  con.exec("INSERT INTO link_tags(link_id, tag_id) VALUES(2, 2);")
+  con.exec("INSERT INTO link_tags(link_id, tag_id) VALUES(3, 3);")
 end
 
 task :create_db do
@@ -62,13 +68,13 @@ end
 task :reset_table do
   p 'RAKE: clearing bookmarks links table'
   con = PG.connect :dbname => 'bookmark_manager'
-  con.exec('TRUNCATE TABLE "links";')
+  con.exec('TRUNCATE TABLE "links" RESTART IDENTITY CASCADE;')
 end
 
 task :reset_test_table do
   p 'RAKE: clearing bookmark test links table'
   con = PG.connect :dbname => 'bookmark_manager_test'
-  con.exec('TRUNCATE TABLE "links";')
+  con.exec('TRUNCATE TABLE "links" RESTART IDENTITY CASCADE;')
 end
 
 task :reset_all_tables do
@@ -127,4 +133,44 @@ end
 task :drop_all_comments_tables do
   Rake::Task[:drop_comments_table].execute
   Rake::Task[:drop_test_comments_table].execute
+end
+
+task :create_tags_table do
+  p 'RAKE: creating bookmarks tags table'
+  con = PG.connect :dbname => 'bookmark_manager'
+  con.exec('CREATE TABLE IF NOT EXISTS tags(id SERIAL PRIMARY KEY, '\
+    'content VARCHAR(60));')
+end
+
+task :create_test_tags_table do
+  p 'RAKE: creating bookmarks test tags table'
+  con = PG.connect :dbname => 'bookmark_manager_test'
+  con.exec('CREATE TABLE IF NOT EXISTS tags(id SERIAL PRIMARY KEY, '\
+    'content VARCHAR(60));')
+end
+
+task :create_all_tags_tables do
+  Rake::Task[:create_tags_table].execute
+  Rake::Task[:create_test_tags_table].execute
+end
+
+task :create_tagjoin_table do
+  p 'RAKE: creating bookmarks tags join table'
+  con = PG.connect :dbname => 'bookmark_manager'
+  con.exec('CREATE TABLE IF NOT EXISTS link_tags(id SERIAL PRIMARY KEY, '\
+    'link_id INTEGER REFERENCES links(id) ON DELETE CASCADE, '\
+    'tag_id INTEGER REFERENCES tags(id) ON DELETE CASCADE);');
+end
+
+task :create_test_tagjoin_table do
+  p 'RAKE: creating bookmarks test tags join table'
+  con = PG.connect :dbname => 'bookmark_manager_test'
+  con.exec('CREATE TABLE IF NOT EXISTS link_tags(id SERIAL PRIMARY KEY, '\
+    'link_id INTEGER REFERENCES links(id) ON DELETE CASCADE, '\
+    'tag_id INTEGER REFERENCES tags(id) ON DELETE CASCADE);');
+end
+
+task :create_all_tagjoin_tables do
+  Rake::Task[:create_tagjoin_table].execute
+  Rake::Task[:create_test_tagjoin_table].execute
 end
