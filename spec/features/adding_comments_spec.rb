@@ -7,6 +7,8 @@ feature 'adding comments' do
     comment_text = 'This is another comment about makers academy'
     fill_in :text, with: comment_text
     click_on 'Submit'
-    expect(page).to have_content comment_text
+    within '#link-1' do
+      expect(page).to have_content comment_text
+    end
   end
 end
