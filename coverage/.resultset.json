@@ -1,65 +1,21 @@
 {
   "RSpec": {
     "coverage": {
-      "/Users/vivianallen/projects/makers-course/bookmark_manager/spec/comment_spec.rb": [
-        1,
-        null,
-        1,
-        null,
-        3,
-        null,
-        3,
-        null,
-        1,
-        2,
-        null,
-        null,
-        1,
-        1,
-        1,
-        null,
-        1,
-        null,
-        null,
-        1,
-        1,
-        1,
-        1,
-        null,
-        1,
-        null,
-        null,
-        null
-      ],
-      "/Users/vivianallen/projects/makers-course/bookmark_manager/lib/comment.rb": [
-        1,
-        1,
-        null,
-        null,
-        1,
+      "/Users/vivianallen/projects/makers-course/bookmark_manager/spec/features/adding_comments_spec.rb": [
         1,
         1,
         1,
         1,
         1,
         null,
-        null,
-        1,
-        2,
-        null,
-        null,
         1,
         1,
-        2,
-        null,
-        null,
         1,
-        1,
-        null,
+        0,
         null,
         null
       ]
     },
-    "timestamp": 1521200664
+    "timestamp": 1521201220
   }
 }

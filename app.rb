@@ -1,5 +1,6 @@
 require 'sinatra/base'
 require './lib/link'
+require './lib/comment'
 require './lib/database_connection'
 require './database_connection_setup'
 require 'sinatra/flash'
@@ -15,6 +16,7 @@ class BookmarkManager < Sinatra::Base
 
   get '/links' do
     @links = Link.all
+    @comment = Comment
     erb :"links/index"
   end
 

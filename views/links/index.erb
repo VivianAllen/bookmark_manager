@@ -33,7 +33,7 @@
             <button type='submit'>Add comments</button>
           </form>
           <ul>
-            <%link.comments.each do |comment|%>
+            <%@comment.all(link).each do |comment|%>
               <li><%=comment.text%></li>
             <%end%>
           </ul>
