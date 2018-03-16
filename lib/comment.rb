@@ -1,3 +1,7 @@
+require_relative 'database_connection'
+require_relative 'link'
+
+
 class Comment
   attr_reader :id, :text, :link_id
   def initialize(id, text, link_id)
@@ -10,13 +14,13 @@ class Comment
     @connection = connect_class
   end
 
-  def self.comments(link)
-    rs = @connection.query "SELECT * FROM comments WHERE link_id='#{link.id}'"
-    rs.map { |comment| @comment.new(comment['id'], comment['text'], comment['link_id']) }
+  def self.all(link)
+    rs = @connection.query "SELECT * FROM comments WHERE link_id = '#{link.id}'"
+    rs.map { |comment| Comment.new(comment['id'], comment['text'], comment['link_id']) }
   end
 
-  def add_comment(link, text)
-    @connection.query "INSERT INTO comments (text, link_id) "\
-    "VALUES ('#{text}', '#{link.id}')"
+  def self.add(link, text)
+    @connection.query \
+    "INSERT INTO comments (text, link_id) VALUES ('#{text}', '#{link.id}')"
   end
 end

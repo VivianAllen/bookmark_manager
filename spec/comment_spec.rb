@@ -3,7 +3,7 @@ require 'comment'
 describe Comment do
 
   let(:mock_connection) { double :DatabaseConnection,
-    query: nil }
+    query: [{'id' => 1, 'text' => 'I am a comment', 'link_id' => '1'}]  }
   let(:mock_link) { double :link, id: 1 }
 
   before :each do
@@ -11,15 +11,18 @@ describe Comment do
   end
 
   describe '#comments' do
-    it 'asks the database for all comment relating to a link' do
-      expect(Link.all[0].comments[0].text).to eq 'This is a comment about Makers Academy'
+    it 'asks the database for all comments relating to a link' do
+      expect(mock_connection).to receive(:query).with \
+      "SELECT * FROM comments WHERE link_id = '#{mock_link.id}'"
+      Comment.all(mock_link)
     end
   end
   describe '#add_comment' do
-    it 'adds a comment'do
+    it 'asks the database to add a comment relating to a link'do
       text = 'a comment about something'
-      Link.all[0].add_comment(text)
-      expect(Link.all[0].comments[-1].text).to eq text
+      expect(mock_connection).to receive(:query).with \
+      "INSERT INTO comments (text, link_id) VALUES ('#{text}', '#{mock_link.id}')"
+      Comment.add(mock_link, text)
     end
   end
 end

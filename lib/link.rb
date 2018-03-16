@@ -1,6 +1,4 @@
-require 'pg'
 require_relative 'database_connection'
-require_relative 'comment'
 
 class Link
 
