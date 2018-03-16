@@ -7,6 +7,8 @@ require 'rspec'
 require 'simplecov'
 require 'simplecov-console'
 require 'rake'
+require_relative '../lib/comment'
+require_relative '../lib/link'
 
 require File.join(File.dirname(__FILE__), '..', 'app.rb')
 Rake.application.load_rakefile
@@ -21,6 +23,8 @@ SimpleCov.start
 RSpec.configure do |config|
 
   config.before(:each) do
+    Link.setup
+    Comment.setup
     Rake::Task[:test_database_setup].execute
   end
 

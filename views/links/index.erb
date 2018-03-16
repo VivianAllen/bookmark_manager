@@ -32,7 +32,7 @@
             <input type="hidden" name="id_to_comment" value="<%=link.id%>">
             <button type='submit'>Add comments</button>
           </form>
-          <ul>
+          <ul style='list-style-type:square'>
             <%@comment.all(link).each do |comment|%>
               <li><%=comment.text%></li>
             <%end%>
