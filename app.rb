@@ -15,8 +15,8 @@ class BookmarkManager < Sinatra::Base
   end
 
   get '/links' do
-    @links = Link.all
     @comment = Comment
+    @links = Link.all
     erb :"links/index"
   end
 
@@ -49,7 +49,7 @@ class BookmarkManager < Sinatra::Base
   end
 
   post '/links/comments/apply_addition' do
-    Link.return_link(session[:id_to_comment]).add_comment(params['text'])
+    Comment.add(Link.return_link(session[:id_to_comment]), params['text'])
     redirect '/links'
   end
 
