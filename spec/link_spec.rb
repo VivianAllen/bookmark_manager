@@ -4,10 +4,9 @@ describe Link do
 
   let(:mock_connection) { double :DatabaseConnection,
     query: [{'id' => 1, 'url' => 'http://www.makersacademy.com', 'title' => 'Makers Academy'}] }
-  let(:mock_comment) { double :Comment, new: nil }
 
   before :each do
-    Link.setup(mock_connection, mock_comment)
+    Link.setup(mock_connection)
   end
 
   describe '#self.all' do
@@ -47,23 +46,6 @@ describe Link do
       "UPDATE links SET url = '#{url}', "\
       "title = '#{title}' WHERE id = '#{id}';"
       Link.edit_link(1, url, title)
-    end
-  end
-  xdescribe '#comments' do
-    it 'returns all comments for a link' do
-      expect(Link.all[0].comments[0].text).to eq 'This is a comment about Makers Academy'
-    end
-  end
-  xdescribe '#add_comment' do
-    it 'adds a comment'do
-      text = 'a comment about something'
-      Link.all[0].add_comment(text)
-      expect(Link.all[0].comments[-1].text).to eq text
-    end
-  end
-  xdescribe '#return_link' do
-    it 'returns a link with a title' do
-      expect(Link.return_link(1).title).to eq 'Makers Academy'
     end
   end
 end

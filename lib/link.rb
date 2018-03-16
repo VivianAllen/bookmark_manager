@@ -12,7 +12,7 @@ class Link
     @title = title
   end
 
-  def self.setup(connect_class=DatabaseConnection, comment_class=Comment)
+  def self.setup(connect_class=DatabaseConnection)
     @connection = connect_class
   end
 
@@ -34,20 +34,6 @@ class Link
   def self.edit_link(id, url, title)
     @connection.query "UPDATE links SET url = '#{url}', "\
     "title = '#{title}' WHERE id = '#{id}';"
-  end
-
-  def self.return_link(id)
-    self.all.select { |link| id.to_s==link.id } [0] # can't find the link in this array!
-  end
-
-  def comments
-    rs = @connection.query "SELECT * FROM comments WHERE link_id='#{self.id}'"
-    rs.map { |comment| @comment.new(comment['id'], comment['text'], comment['link_id']) }
-  end
-
-  def add_comment(text)
-    @connection.query "INSERT INTO comments (text, link_id) "\
-    "VALUES ('#{text}', '#{self.id}')"
   end
 
   private
