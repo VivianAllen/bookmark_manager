@@ -12,23 +12,27 @@ class Link
     @title = title
   end
 
+  def self.setup(connect_class=DatabaseConnection, comment_class=Comment)
+    @connection = connect_class
+  end
+
   def self.all
-    rs = DatabaseConnection.query "SELECT * FROM links"
+    rs = @connection.query "SELECT * FROM links"
     rs.map { |link| Link.new(link['id'], link['url'], link['title']) }
   end
 
   def self.add_link(url, title)
     return false unless self.valid_url(url)
-    DatabaseConnection.query \
+    @connection.query \
     "INSERT INTO links (url, title) VALUES ('#{url}', '#{title}')"
   end
 
   def self.delete_link(id)
-    DatabaseConnection.query "DELETE FROM links WHERE id = '#{id}';"
+    @connection.query "DELETE FROM links WHERE id = '#{id}';"
   end
 
   def self.edit_link(id, url, title)
-    DatabaseConnection.query "UPDATE links SET url = '#{url}', "\
+    @connection.query "UPDATE links SET url = '#{url}', "\
     "title = '#{title}' WHERE id = '#{id}';"
   end
 
@@ -37,12 +41,12 @@ class Link
   end
 
   def comments
-    rs = DatabaseConnection.query "SELECT * FROM comments WHERE link_id='#{self.id}'"
-    rs.map { |comment| Comment.new(comment['id'], comment['text'], comment['link_id']) }
+    rs = @connection.query "SELECT * FROM comments WHERE link_id='#{self.id}'"
+    rs.map { |comment| @comment.new(comment['id'], comment['text'], comment['link_id']) }
   end
 
   def add_comment(text)
-    DatabaseConnection.query "INSERT INTO comments (text, link_id) "\
+    @connection.query "INSERT INTO comments (text, link_id) "\
     "VALUES ('#{text}', '#{self.id}')"
   end
 
