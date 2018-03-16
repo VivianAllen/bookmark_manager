@@ -34,6 +34,11 @@ class Link
     "title = '#{title}' WHERE id = '#{id}';"
   end
 
+  def self.return_link(link_id)
+    link = @connection.query "SELECT * FROM links WHERE id = '#{link_id}'"
+    Link.new(link[0]['id'], link[0]['url'], link[0]['title'])
+  end
+
   private
 
   def self.valid_url(url)

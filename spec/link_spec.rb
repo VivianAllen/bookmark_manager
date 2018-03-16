@@ -48,4 +48,10 @@ describe Link do
       Link.edit_link(1, url, title)
     end
   end
+  describe '#self.return_link' do
+    it 'creates a new link instance from database data' do
+      id = 1
+      expect(Link.return_link(id).title).to eq 'Makers Academy'
+    end
+  end
 end
